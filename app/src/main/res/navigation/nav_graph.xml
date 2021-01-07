@@ -28,7 +28,7 @@
         android:label="fragment_step_detail"
         tools:layout="@layout/fragment_step_detail">
         <action
-            android:id="@+id/"
+            android:id="@+id/action_stepDetailFragment_to_recipeDetailFragment"
             app:popUpTo="@id/recipeDetailFragment" />
     </fragment>
 </navigation>
