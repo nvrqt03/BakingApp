@@ -14,7 +14,8 @@ import com.google.android.material.navigation.NavigationView;
 import ajmitchell.android.bakingapp.databinding.ActivityMainBinding;
 import ajmitchell.android.bakingapp.network.BakingApi;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
+        RecipeDetailFragment.OnFragmentInteractionListener {
 
     ActivityMainBinding mBinding;
     public static final String TAG = "MainActivity.class";
