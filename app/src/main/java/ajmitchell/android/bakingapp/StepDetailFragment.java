@@ -23,7 +23,7 @@ public class StepDetailFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_step_detail, container, false);
         return mBinding.getRoot();
     }
 

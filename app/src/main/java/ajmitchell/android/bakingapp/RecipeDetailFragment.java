@@ -23,7 +23,7 @@ public class RecipeDetailFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_recipe_detail, container, false);
         return mBinding.getRoot();
     }
 
