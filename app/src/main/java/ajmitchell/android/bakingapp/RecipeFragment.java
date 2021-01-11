@@ -1,7 +1,9 @@
 package ajmitchell.android.bakingapp;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -31,7 +33,7 @@ import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
-public class RecipeFragment extends Fragment implements RecipeAdapter.RecipeItemClickListener {
+public class RecipeFragment extends Fragment  {
 
     private static final String TAG = "RecipeFragment";
     private RecipeViewModel mViewModel;
@@ -39,8 +41,8 @@ public class RecipeFragment extends Fragment implements RecipeAdapter.RecipeItem
     private RecyclerView recyclerView;
     private List<Recipe> recipeList;
     private RecipeAdapter adapter;
-    BakingApi bakingApi;
-    private RecipeAdapter.RecipeItemClickListener listener;
+    private BakingApi bakingApi;
+
 
     public static RecipeFragment newInstance() {
         return new RecipeFragment();
@@ -49,39 +51,24 @@ public class RecipeFragment extends Fragment implements RecipeAdapter.RecipeItem
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.recipe_fragment, container, false);
-    }
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.recipe_fragment, container, false);
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
-        // TODO: Use the ViewModel
+        return mBinding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        recyclerView = mBinding.recipeRv;
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        adapter = new RecipeAdapter(recipeList, listener);
-        recyclerView.setAdapter(adapter);
+        adapter = new RecipeAdapter(recipeList);
+        mBinding.recipeRv.setAdapter(adapter);
+
+        mViewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
+
+        mBinding.recipeRv.setOnClickListener((View.OnClickListener) listener);
 
         Retrofit retrofit = RetrofitClient.getInstance();
         bakingApi = retrofit.create(BakingApi.class);
-        getRecipes();
 
-        mBinding.recipeRv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-                navController.navigate(R.id.action_recipeFragment_to_recipeDetailFragment);
-            }
-        });
-    }
-
-    private void getRecipes() {
         Observable<List<Recipe>> observable = bakingApi.getRecipes();
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -106,16 +93,21 @@ public class RecipeFragment extends Fragment implements RecipeAdapter.RecipeItem
 
                     }
                 });
-    }
 
+
+    }
     private void displayData(List<Recipe> recipes) {
-        adapter = new RecipeAdapter(recipes, this);
+        adapter = new RecipeAdapter(recipes);
         recyclerView.setAdapter(adapter);
     }
 
+    private RecipeAdapter.RecipeItemClickListener listener = new RecipeAdapter.RecipeItemClickListener() {
 
-    @Override
-    public void onRecipeItemClick(Recipe recipe) {
 
-    }
+        @Override
+        public void onRecipeItemClick(Recipe recipe) {
+            recipe.getId();
+        }
+    };
+
 }

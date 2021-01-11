@@ -16,11 +16,11 @@ import ajmitchell.android.bakingapp.models.Recipe;
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
 
     private List<Recipe> recipeList;
-    private final RecipeItemClickListener mListener;
+   // private final RecipeItemClickListener mListener;
 
-    public RecipeAdapter(List<Recipe> recipeList, RecipeItemClickListener listener) {
+    public RecipeAdapter(List<Recipe> recipeList) {
         this.recipeList = recipeList;
-        this.mListener = listener;
+        //this.mListener = listener;
     }
 
     @NonNull
@@ -32,7 +32,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
     @Override
     public void onBindViewHolder(@NonNull RecipeViewHolder holder, int position) {
-        holder.bind(recipeList.get(position), mListener);
+        holder.bind(recipeList.get(position));
     }
 
     @Override
@@ -52,9 +52,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             this.binding = binding;
         }
 
-        public void bind(Recipe recipe, RecipeItemClickListener clickListener) {
+        public void bind(Recipe recipe) { // , RecipeItemClickListener clickListener
             binding.setRecipe(recipe);
-            binding.setRecipeItemClick(clickListener);
+            //binding.setRecipeItemClick(clickListener);
             binding.executePendingBindings();
         }
 

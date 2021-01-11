@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/recipeFragment">
+
     <fragment
         android:id="@+id/recipeFragment"
         android:name="ajmitchell.android.bakingapp.RecipeFragment"
@@ -21,14 +22,15 @@
         <action
             android:id="@+id/action_recipeDetailFragment_to_stepDetailFragment"
             app:destination="@id/stepDetailFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/stepDetailFragment"
         android:name="ajmitchell.android.bakingapp.StepDetailFragment"
         android:label="fragment_step_detail"
-        tools:layout="@layout/fragment_step_detail">
+        tools:layout="@layout/fragment_step_detail" >
         <action
             android:id="@+id/action_stepDetailFragment_to_recipeDetailFragment"
-            app:popUpTo="@id/recipeDetailFragment" />
+            app:destination="@id/recipeDetailFragment" />
     </fragment>
 </navigation>
