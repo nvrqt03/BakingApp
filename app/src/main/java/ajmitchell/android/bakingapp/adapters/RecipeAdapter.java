@@ -14,6 +14,7 @@ import java.util.List;
 import ajmitchell.android.bakingapp.R;
 import ajmitchell.android.bakingapp.RecipeActivity;
 import ajmitchell.android.bakingapp.models.Recipe;
+import ajmitchell.android.bakingapp.utils.Constants;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
 
@@ -38,7 +39,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     public void onBindViewHolder(@NonNull RecipeViewHolder holder, int position) {
         Recipe items = holder.recipe = recipeList.get(position);
         holder.recipeName.setText(items.getName());
-        holder.servings.setText(String.valueOf(items.getServings()));
+        holder.servings.setText(Constants.SERVING + String.valueOf(items.getServings()));
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

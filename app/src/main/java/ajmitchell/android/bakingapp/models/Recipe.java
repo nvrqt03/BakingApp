@@ -28,6 +28,7 @@ public class Recipe implements Parcelable {
     @Expose
     private String image;
 
+
     protected Recipe(Parcel in) {
         if (in.readByte() == 0) {
             id = null;
