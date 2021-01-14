@@ -1,41 +1,84 @@
 package ajmitchell.android.bakingapp;
 
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.navigation.NavController;
-import androidx.navigation.fragment.NavHostFragment;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.util.Log;
 
-import com.google.android.material.navigation.NavigationView;
+import java.util.List;
 
 import ajmitchell.android.bakingapp.adapters.RecipeAdapter;
-import ajmitchell.android.bakingapp.databinding.ActivityMainBinding;
 import ajmitchell.android.bakingapp.models.Recipe;
 import ajmitchell.android.bakingapp.network.BakingApi;
+import ajmitchell.android.bakingapp.network.RetrofitClient;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+import retrofit2.Retrofit;
 
-public class MainActivity extends AppCompatActivity  {
 
-    ActivityMainBinding mBinding;
+public class MainActivity extends AppCompatActivity {
+
     public static final String TAG = "MainActivity.class";
+
+    private boolean mTwoPane = false;
+    private RecyclerView recyclerView;
+    private RecipeAdapter adapter;
+    private List<Recipe> recipeList;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        setContentView(R.layout.activity_main);
 
-        if (savedInstanceState == null) {
+        // Get recipe list as a recyclerView
+        recyclerView = findViewById(R.id.recipe_list);
 
-            getSupportFragmentManager().beginTransaction()
-                    .setReorderingAllowed(true)
-                    .add(R.id.recipeFragment, RecipeFragment.class, null)
-                    .commit();
+        if (findViewById(R.id.recipe_detail_container) != null) {
+            mTwoPane = true;
         }
+
+        Retrofit retrofit = RetrofitClient.getInstance();
+        BakingApi bakingApi = retrofit.create(BakingApi.class);
+
+        Observable<List<Recipe>> observable = bakingApi.getRecipes();
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<List<Recipe>>() {
+                    @Override
+                    public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(@io.reactivex.rxjava3.annotations.NonNull List<Recipe> recipes) {
+                        displayData(recipes);
+                    }
+
+                    @Override
+                    public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+                        Log.e(TAG, "onError: ", e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
 
     }
 
+    private void displayData(List<Recipe> recipes) {
+        adapter = new RecipeAdapter(recipes, getApplicationContext());
+        recyclerView.setAdapter(adapter);
+
+    }
 }

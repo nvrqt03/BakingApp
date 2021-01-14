@@ -2,4 +2,5 @@
     <string name="app_name">BakingApp</string>
     <string name="servings">Serves: \u0020</string>
     <string name="notAvailable">Data not available</string>
+    <string name="numberOfServings">\"Number of servings: \"</string>
 </resources>
