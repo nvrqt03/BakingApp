@@ -9,6 +9,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ajmitchell.android.bakingapp.adapters.RecipeAdapter;
@@ -30,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
     private boolean mTwoPane = false;
     private RecyclerView recyclerView;
     private RecipeAdapter adapter;
-    private List<Recipe> recipeList;
 
 
     @Override

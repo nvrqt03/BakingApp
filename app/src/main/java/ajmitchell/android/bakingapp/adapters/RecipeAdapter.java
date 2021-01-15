@@ -2,6 +2,8 @@ package ajmitchell.android.bakingapp.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,15 +12,17 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
 import java.util.List;
 import ajmitchell.android.bakingapp.R;
-import ajmitchell.android.bakingapp.RecipeActivity;
+import ajmitchell.android.bakingapp.RecipeDetailActivity;
 import ajmitchell.android.bakingapp.models.Recipe;
 import ajmitchell.android.bakingapp.utils.Constants;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
 
-    private List<Recipe> recipeList;
+    private List<Recipe> recipeList = new ArrayList<>();
     private boolean mTwoPane = false;
     private Context mContext;
 
@@ -43,15 +47,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mTwoPane) {
-                    Toast.makeText(mContext, "Widescreen detected", Toast.LENGTH_SHORT).show();
-                } else {
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("arrayList", (Parcelable) recipeList);
+
                     Context context = view.getContext();
-                    Intent intent = new Intent(context, RecipeActivity.class);
+                    Intent intent = new Intent(context, RecipeDetailActivity.class);
                     intent.putExtra("recipes", holder.getAdapterPosition());
                     context.startActivity(intent);
                 }
-            }
         });
     }
 
@@ -74,7 +77,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             view = itemView;
             recipeName = itemView.findViewById(R.id.recipe_name);
             servings = itemView.findViewById(R.id.servings);
+
+
         }
+    }
+
+    public interface  RecipeItemClickListener {
+        void onRecipeItemClick(Recipe recipeItem);
     }
 
 }
