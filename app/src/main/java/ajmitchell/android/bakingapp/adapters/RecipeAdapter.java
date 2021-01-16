@@ -25,6 +25,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     private List<Recipe> recipeList = new ArrayList<>();
     private boolean mTwoPane = false;
     private Context mContext;
+    private Recipe recipe;
 
     public RecipeAdapter(List<Recipe> recipeList, Context context) {
         this.recipeList = recipeList;
@@ -48,7 +49,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             @Override
             public void onClick(View view) {
                     Bundle bundle = new Bundle();
-                    bundle.putParcelable("arrayList", (Parcelable) recipeList);
+                    bundle.putParcelable("arrayList", recipe);
 
                     Context context = view.getContext();
                     Intent intent = new Intent(context, RecipeDetailActivity.class);

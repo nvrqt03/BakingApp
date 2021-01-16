@@ -43,7 +43,7 @@ public class RecipeDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments().containsKey("recipe")) {
-            mRecipe = recipeList.get(getArguments().getBundle("recipe")); }
+            mRecipe = getArguments().getParcelable("recipe"); }
 
 
     }
