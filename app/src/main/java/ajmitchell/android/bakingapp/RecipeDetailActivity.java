@@ -19,8 +19,8 @@ public class RecipeDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recipe);
 
         if (savedInstanceState == null) {
-            Intent intent = getIntent();
-            Recipe recipe = intent.getParcelableExtra("recipes");
+            Bundle data = getIntent().getExtras();
+            Recipe recipe = data.getParcelable("recipes");
 
             //int selectedRecipe = getIntent().getIntExtra("recipe", 0);
             RecipeDetailFragment fragment = RecipeDetailFragment.newInstance(recipe);

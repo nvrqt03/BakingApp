@@ -25,6 +25,7 @@ public class RecipeDetailFragment extends Fragment {
 
     public Recipe mRecipe;
     private final static String TAG = "RecipeDetailFragment";
+    private String recipeName;
 
     public RecipeDetailFragment() {
 
@@ -42,10 +43,10 @@ public class RecipeDetailFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments().containsKey("recipe")) {
-            mRecipe = getArguments().getParcelable("recipe"); }
-
-
+        if (getArguments() != null && getArguments().containsKey("recipe")) {
+            mRecipe = getArguments().getParcelable("recipe");
+            recipeName = mRecipe.getName();
+        }
     }
 
     @Nullable
@@ -54,7 +55,7 @@ public class RecipeDetailFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.recipe_detail, container, false);
 
         if (mRecipe != null) {
-            ((TextView) rootView.findViewById(R.id.recipe_name)).setText(mRecipe.getName());
+            ((TextView) rootView.findViewById(R.id.recipe_name)).setText(recipeName);
 //            ((TextView) rootView.findViewById(R.id.recipe_ingredients)).setText(mRecipe.getIngredients().toString());
 //            ((TextView) rootView.findViewById(R.id.long_description)).setText(mRecipe.describeContents());
         } else {
