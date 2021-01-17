@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import ajmitchell.android.bakingapp.models.Ingredient;
 import ajmitchell.android.bakingapp.models.Recipe;
 
 
@@ -26,6 +27,7 @@ public class RecipeDetailFragment extends Fragment {
     public Recipe mRecipe;
     private final static String TAG = "RecipeDetailFragment";
     private String recipeName;
+    //private List<Ingredient> ingredients;
 
     public RecipeDetailFragment() {
 
@@ -46,6 +48,7 @@ public class RecipeDetailFragment extends Fragment {
         if (getArguments() != null && getArguments().containsKey("recipe")) {
             mRecipe = getArguments().getParcelable("recipe");
             recipeName = mRecipe.getName();
+            //ingredients = mRecipe.getIngredients();
         }
     }
 
@@ -55,8 +58,8 @@ public class RecipeDetailFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.recipe_detail, container, false);
 
         if (mRecipe != null) {
-            ((TextView) rootView.findViewById(R.id.recipe_name)).setText(recipeName);
-//            ((TextView) rootView.findViewById(R.id.recipe_ingredients)).setText(mRecipe.getIngredients().toString());
+            ((TextView) rootView.findViewById(R.id.recipe_detail)).setText(recipeName);
+//            ((TextView) rootView.findViewById(R.id.recipe_detail)).setText((CharSequence) ingredients);
 //            ((TextView) rootView.findViewById(R.id.long_description)).setText(mRecipe.describeContents());
         } else {
             Log.e(TAG, "onCreateView: mRecipe is null", null);
