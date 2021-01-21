@@ -11,13 +11,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 import ajmitchell.android.bakingapp.R;
 import ajmitchell.android.bakingapp.RecipeDetailActivity;
+import ajmitchell.android.bakingapp.RecipeDetailFragment;
 import ajmitchell.android.bakingapp.models.Recipe;
+import ajmitchell.android.bakingapp.models.Step;
 import ajmitchell.android.bakingapp.utils.Constants;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
@@ -26,6 +29,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     private boolean mTwoPane = false;
     private Context mContext;
     private Recipe recipe;
+    private Step step;
 
     public RecipeAdapter(List<Recipe> recipeList, Context context) {
         this.recipeList = recipeList;
@@ -48,14 +52,24 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelable("arrayList", recipe);
+                if (mTwoPane = true) {
+                    Recipe currentRecipe = holder.recipe;
+                    RecipeDetailFragment fragment = RecipeDetailFragment.newInstance(currentRecipe);
+                    ((AppCompatActivity) mContext).getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.recipe_detail_container, fragment)
+                            .addToBackStack(null)
+                            .commit();
+                } else {
+//                    Bundle bundle = new Bundle();
+//                    bundle.putParcelable("arrayList", recipe);
 
                     Context context = view.getContext();
                     Intent intent = new Intent(context, RecipeDetailActivity.class);
                     intent.putExtra("recipes", holder.recipe);
+                    intent.putExtra("steps", holder.steps);
                     context.startActivity(intent);
                 }
+            }
         });
     }
 
@@ -72,6 +86,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         TextView recipeName;
         TextView servings;
         Recipe recipe;
+        Step steps;
 
         public RecipeViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -83,8 +98,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         }
     }
 
-    public interface  RecipeItemClickListener {
-        void onRecipeItemClick(Recipe recipeItem);
-    }
+//    public interface  RecipeItemClickListener {
+//        void onRecipeItemClick(Recipe recipeItem);
+//    }
 
 }

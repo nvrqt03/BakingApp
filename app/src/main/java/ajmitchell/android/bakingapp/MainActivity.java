@@ -41,10 +41,6 @@ public class MainActivity extends AppCompatActivity {
         // Get recipe list as a recyclerView
         recyclerView = findViewById(R.id.recipe_list);
 
-        if (findViewById(R.id.recipe_detail_container) != null) {
-            mTwoPane = true;
-        }
-
         Retrofit retrofit = RetrofitClient.getInstance();
         BakingApi bakingApi = retrofit.create(BakingApi.class);
 
@@ -59,7 +55,8 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(@io.reactivex.rxjava3.annotations.NonNull List<Recipe> recipes) {
-                        displayData(recipes);
+                        adapter = new RecipeAdapter(recipes, MainActivity.this);
+                        recyclerView.setAdapter(adapter);
                     }
 
                     @Override
@@ -73,6 +70,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+        if (findViewById(R.id.recipe_detail_container) != null) {
+            mTwoPane = true;
+        }
 
     }
 

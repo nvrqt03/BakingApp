@@ -10,8 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ajmitchell.android.bakingapp.models.Recipe;
+import ajmitchell.android.bakingapp.models.Step;
 
 public class RecipeDetailActivity extends AppCompatActivity {
+
+    private boolean mTwoPane = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,12 +24,19 @@ public class RecipeDetailActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             Bundle data = getIntent().getExtras();
             Recipe recipe = data.getParcelable("recipes");
+            Step step = data.getParcelable("steps");
 
-            //int selectedRecipe = getIntent().getIntExtra("recipe", 0);
             RecipeDetailFragment fragment = RecipeDetailFragment.newInstance(recipe);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.recipe_detail_container, fragment)
                     .commit();
+
+            if (mTwoPane = true) {
+                StepDetailFragment fragment1 = StepDetailFragment.newInstance(step);
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.recipe_detail_container, fragment1)
+                        .commit();
+            }
         }
     }
 }

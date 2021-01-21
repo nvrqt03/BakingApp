@@ -4,31 +4,53 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
+
 import androidx.fragment.app.Fragment;
 
-import ajmitchell.android.bakingapp.databinding.FragmentStepDetailBinding;
+import ajmitchell.android.bakingapp.models.Step;
 
 public class StepDetailFragment extends Fragment {
 
-    private FragmentStepDetailBinding mBinding;
+    private Step mStep;
 
     public StepDetailFragment() {
 
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_step_detail, container, false);
-        return mBinding.getRoot();
+    public static StepDetailFragment newInstance(Step step) {
+        StepDetailFragment fragment = new StepDetailFragment();
+        Bundle args = new Bundle();
+        args.putParcelable("step", step);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null && getArguments().containsKey("step")) {
+            mStep = getArguments().getParcelable("step");
+        }
     }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_step_detail, container, false);
+
+        if (mStep != null) {
+            ((TextView) rootView.findViewById(R.id.step_short_description)).setText(mStep.getShortDescription());
+            ((TextView) rootView.findViewById(R.id.ingredients)).setText(mStep.getDescription());
+        }
+        return rootView;
+    }
+
+//    @Override
+//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+//        super.onViewCreated(view, savedInstanceState);
+//    }
 }
