@@ -44,7 +44,7 @@ public class StepDetailFragment extends Fragment {
 
         if (mStep != null) {
             ((TextView) rootView.findViewById(R.id.step_short_description)).setText(mStep.getShortDescription());
-            ((TextView) rootView.findViewById(R.id.ingredients)).setText(mStep.getDescription());
+            ((TextView) rootView.findViewById(R.id.step_long_description)).setText(mStep.getDescription());
         }
         return rootView;
     }

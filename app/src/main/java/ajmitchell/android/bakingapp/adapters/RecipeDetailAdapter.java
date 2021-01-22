@@ -54,8 +54,8 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecipeDetailAdapte
                             .addToBackStack(null)
                             .commit();
                 } else {
-//                Bundle bundle = new Bundle();
-//                bundle.putParcelable("step", step);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("step", step);
 
                     Context context = view.getContext();
                     Intent intent = new Intent(context, RecipeDetailActivity.class);
