@@ -76,9 +76,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void displayData(List<Recipe> recipes) {
-        adapter = new RecipeAdapter(recipes, this);
-        recyclerView.setAdapter(adapter);
-
-    }
+//    private void displayData(List<Recipe> recipes) {
+//        adapter = new RecipeAdapter(recipes, this);
+//        recyclerView.setAdapter(adapter);
+//
+//    }
 }

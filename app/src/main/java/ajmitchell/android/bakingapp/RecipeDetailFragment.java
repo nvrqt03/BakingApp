@@ -58,7 +58,7 @@ public class RecipeDetailFragment extends Fragment {
             recipeName = mRecipe.getName();
             ingredientList = mRecipe.getIngredients();
             steps = mRecipe.getSteps();
-            String ingredients = ingredientList.get(0).getIngredient();
+            //String ingredients = ingredientList.get(0).getIngredient();
 
 
         }

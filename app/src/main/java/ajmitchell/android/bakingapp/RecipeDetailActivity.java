@@ -34,7 +34,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
             if (mTwoPane = true) {
                 StepDetailFragment fragment1 = StepDetailFragment.newInstance(step);
                 getSupportFragmentManager().beginTransaction()
-                        .add(R.id.recipe_detail_container, fragment1)
+                        .replace(R.id.recipe_detail_container, fragment1)
                         .commit();
             }
         }
