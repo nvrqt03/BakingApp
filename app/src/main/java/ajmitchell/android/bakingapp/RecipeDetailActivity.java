@@ -31,12 +31,12 @@ public class RecipeDetailActivity extends AppCompatActivity {
                     .add(R.id.recipe_detail_container, fragment)
                     .commit();
 
-            if (mTwoPane = true) {
-                StepDetailFragment fragment1 = StepDetailFragment.newInstance(step);
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.recipe_detail_container, fragment1)
-                        .commit();
-            }
+//            if (mTwoPane) {
+//                StepDetailFragment fragment1 = StepDetailFragment.newInstance(step);
+//                getSupportFragmentManager().beginTransaction()
+//                        .replace(R.id.recipe_detail_container, fragment1)
+//                        .commit();
+//            }
         }
     }
 }

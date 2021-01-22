@@ -52,7 +52,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mTwoPane = true) {
+                if (mTwoPane) {
                     Recipe currentRecipe = holder.recipe;
                     RecipeDetailFragment fragment = RecipeDetailFragment.newInstance(currentRecipe);
                     ((AppCompatActivity) mContext).getSupportFragmentManager().beginTransaction()

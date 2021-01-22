@@ -44,7 +44,7 @@ public class RecipeDetailFragment extends Fragment {
     public static RecipeDetailFragment newInstance(Recipe selectedRecipe) {
         RecipeDetailFragment fragment = new RecipeDetailFragment();
         Bundle args = new Bundle();
-        args.putParcelable("recipe", selectedRecipe);
+        args.putParcelable("recipes", selectedRecipe);
         fragment.setArguments(args);
         return fragment;
     }
@@ -53,14 +53,11 @@ public class RecipeDetailFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments() != null && getArguments().containsKey("recipe")) {
-            mRecipe = getArguments().getParcelable("recipe");
+        if (getArguments() != null && getArguments().containsKey("recipes")) {
+            mRecipe = getArguments().getParcelable("recipes");
             recipeName = mRecipe.getName();
             ingredientList = mRecipe.getIngredients();
             steps = mRecipe.getSteps();
-            //String ingredients = ingredientList.get(0).getIngredient();
-
-
         }
     }
 
