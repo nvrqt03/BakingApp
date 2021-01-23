@@ -43,26 +43,27 @@ public class RecipeDetailAdapter extends RecyclerView.Adapter<RecipeDetailAdapte
     public void onBindViewHolder(@NonNull StepViewHolder holder, int position) {
         Step items = holder.step = recipeSteps.get(position);
         holder.stepItem.setText(items.getShortDescription());
+        // going to redo this - not best practice, should be in interface
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mTwoPane) {
+                //if (mTwoPane) {
                     Step recipeStep = holder.step;
                     StepDetailFragment fragment = StepDetailFragment.newInstance(recipeStep);
                     ((AppCompatActivity) mContext).getSupportFragmentManager().beginTransaction()
                             .replace(R.id.recipe_detail_container, fragment)
                             .addToBackStack(null)
                             .commit();
-                } else {
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("step", step);
-
-                    Context context = view.getContext();
-                    Intent intent = new Intent(context, RecipeDetailActivity.class);
-                    intent.putExtra("steps", holder.step);
-                    context.startActivity(intent);
+//                } else {
+//                Bundle bundle = new Bundle();
+//                bundle.putParcelable("step", step);
+//
+//                    Context context = view.getContext();
+//                    Intent intent = new Intent(context, RecipeDetailActivity.class);
+//                    intent.putExtra("steps", holder.step);
+//                    context.startActivity(intent);
                 }
-            }
+            //}
         });
     }
 
